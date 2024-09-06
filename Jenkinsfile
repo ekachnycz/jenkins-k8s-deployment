@@ -37,11 +37,12 @@ pipeline {
     }
 
     stage('Deploying React.js container to Kubernetes') {
-        environment {
-                 KUBECONFIG = credentials('microk8s')
-            }
-      steps {
-        script {
+        withKubeConfig([credentialsId: 'microk8s',
+                    serverUrl: 'https://192.168.86.27:16443',
+                    contextName: 'microk8s',
+                    clusterName: 'microk8s-cluster',
+                    namespace: 'default'
+                    ]) {
           sh 'kubectl apply -f deployment.yaml'
           sh 'kubectl apply -f service.yaml'
         }
