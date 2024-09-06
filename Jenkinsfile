@@ -37,8 +37,8 @@ pipeline {
     }
 
     stage('Deploying React.js container to Kubernetes') {
-        withKubeConfig([credentialsId: 'microk8s'
-                    ]) {
+      steps {
+        withKubeConfig(credentialsId: 'microk8s') {
           sh 'kubectl apply -f deployment.yaml'
           sh 'kubectl apply -f service.yaml'
         }
