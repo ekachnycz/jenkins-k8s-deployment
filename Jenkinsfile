@@ -5,12 +5,7 @@ pipeline {
     dockerImage = ""
   }
 
-  agent {
-    docker {
-      image 'docker:20.10.8' // Docker image with Docker CLI installed
-      args '-v /var/run/docker.sock:/var/run/docker.sock' // Bind Docker socket
-    }
-  }
+  agent any
   
   stages {
 
