@@ -14,7 +14,12 @@ pipeline {
          git branch: 'main', url: 'https://github.com/ekachnycz/jenkins-k8s-deployment.git'
       }
     }
-
+    
+    stage('Initialize'){
+           def dockerHome = tool 'myDocker'
+           env.PATH = "${dockerHome}/bin:${env.PATH}"
+       }
+    
     stage('Build image') {
       steps{
         script {
